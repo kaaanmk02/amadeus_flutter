@@ -1,0 +1,48 @@
+name: Release APK
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.24.5'
+          channel: stable
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - uses: android-commandline-tools/setup@v1
+        with:
+          cmdline-tools-version: 11076708
+          build-tools-version: '35.0.0'
+          accept-android-licenses: true
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.12'
+      - name: Create local.properties
+        run: |
+          echo "flutter.sdk=\${{ github.workspace }}/.flutter" >> local.properties
+          echo "flutter.buildMode=release" >> local.properties
+      - name: Flutter clean + pub get
+        run: flutter clean && flutter pub get
+      - name: Build release APK
+        run: flutter build apk --release
+      - name: Upload APK to GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: build/app/outputs/flutter-apk/app-release.apk
+          generate_release_notes: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
