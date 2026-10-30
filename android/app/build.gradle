@@ -1,0 +1,43 @@
+plugins {
+    id "com.android.application"
+    id "org.jetbrains.kotlin.android"
+    id "dev.flutter.flutter-gradle-plugin"
+}
+
+android {
+    namespace "com.example.amadeus"
+    compileSdk 34
+
+    defaultConfig {
+        applicationId "com.example.amadeus"
+        minSdk 21
+        targetSdk 34
+        versionCode flutterVersionCode.toInteger()
+        versionName flutterVersionName
+    }
+
+    signingConfigs {
+        release {
+            storeFile file("../../amadeus.jks")
+            storePassword System.getenv("AMADEUS_KEYSTORE_PASSWORD")
+            keyAlias "amadeus"
+            keyPassword System.getenv("AMADEUS_KEY_PASSWORD")
+        }
+    }
+
+    buildTypes {
+        release {
+            signingConfig signingConfigs.release
+            minifyEnabled false
+        }
+        debug {
+            signingConfig signingConfigs.debug
+        }
+    }
+}
+
+flutter {
+    source = "../.."
+}
+
+dependencies {}
