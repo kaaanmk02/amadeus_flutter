@@ -1,0 +1,39 @@
+name: amadeus_flutter
+description: Amadeus Flutter app with emotion-driven UI
+version: 0.1.0+1
+
+environment:
+  sdk: '^3.13.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.8
+  http: ^1.2.2
+  shared_preferences: ^2.3.2
+  provider: ^6.1.2
+  audioplayers: ^6.1.0
+  flutter_tts: ^4.0.2
+  speech_to_text: ^7.0.0
+  intl: ^0.19.0
+  path_provider: ^2.1.4
+  flutter_local_notifications: ^17.2.2
+  lottie: ^3.1.2
+  url_launcher: ^6.3.0
+  web_socket_channel: ^2.4.0
+  connectivity_plus: ^6.0.5
+  flutter_downloader: ^1.11.0
+  permission_handler: ^11.3.1
+  llama_flutter_android: ^0.2.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/expressions/
+    - assets/voices/oneshot/
+    - assets/audio/amadeus_ost/
