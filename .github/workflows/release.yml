@@ -37,6 +37,14 @@ jobs:
           echo "flutter.sdk=$(dirname "$(dirname "$(which flutter)")")" > local.properties
           echo "flutter.buildMode=release" >> local.properties
 
+      - name: Debug SDK path
+        run: |
+          which flutter
+          echo "flutter.sdk=$(dirname "$(dirname "$(which flutter)")")"
+          pwd
+          ls -la
+          cat local.properties
+
       - name: Install dependencies
         run: flutter pub get --no-example
 
