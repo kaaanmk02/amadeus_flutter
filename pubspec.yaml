@@ -3,7 +3,7 @@ description: Amadeus Flutter app with emotion-driven UI
 version: 0.1.0+1
 
 environment:
-  sdk: '^3.13.0'
+  sdk: '^3.5.0'
 
 dependencies:
   flutter:
