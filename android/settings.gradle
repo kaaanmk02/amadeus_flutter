@@ -1,0 +1,8 @@
+def localProperties = new Properties()
+def localPropertiesFile = rootProject.file('local.properties')
+if (localPropertiesFile.exists()) {
+    localPropertiesFile.withInputStream { localProperties.load(it) }
+}
+def flutterSdkPath = localProperties.getProperty('flutter.sdk')
+
+include ':app'
