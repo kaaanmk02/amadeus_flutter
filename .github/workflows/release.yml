@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   build:
@@ -22,15 +22,20 @@ jobs:
         uses: actions/setup-java@v4
         with:
           distribution: temurin
-          java-version: 17
+          java-version: "17"
           cache: gradle
 
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.24.5'
+          flutter-version: "3.24.5"
           channel: stable
           cache: true
+
+      - name: Configure Flutter SDK path
+        run: |
+          echo "flutter.sdk=$(dirname "$(dirname "$(which flutter)")")" > android/local.properties
+          echo "flutter.buildMode=release" >> android/local.properties
 
       - name: Install dependencies
         run: flutter pub get --no-example
@@ -45,3 +50,17 @@ jobs:
           path: build/app/outputs/flutter-apk/app-arm64-release.apk
           retention-days: 7
           compression-level: 1
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: nightly-${{ github.sha }}
+          name: Nightly ${{ github.sha }}
+          body: |
+            Automated nightly build from commit ${{ github.sha }}
+          files: |
+            build/app/outputs/flutter-apk/app-arm64-release.apk
+          draft: false
+          prerelease: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
