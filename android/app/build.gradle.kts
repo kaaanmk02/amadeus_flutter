@@ -24,10 +24,13 @@ android {
 
     signingConfigs {
         release {
-            storeFile = file("../../amadeus.jks")
-            storePassword = System.getenv("AMADEUS_KEYSTORE_PASSWORD")
-            keyAlias = "amadeus"
-            keyPassword = System.getenv("AMADEUS_KEY_PASSWORD")
+            val keystoreFile = file("../../amadeus.jks")
+            if (keystoreFile.exists()) {
+                storeFile = keystoreFile
+                storePassword = System.getenv("AMADEUS_KEYSTORE_PASSWORD")
+                keyAlias = "amadeus"
+                keyPassword = System.getenv("AMADEUS_KEY_PASSWORD")
+            }
         }
     }
 
