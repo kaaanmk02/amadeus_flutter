@@ -34,8 +34,8 @@ jobs:
 
       - name: Configure Flutter SDK path
         run: |
-          echo "flutter.sdk=$(dirname "$(dirname "$(which flutter)")")" > android/local.properties
-          echo "flutter.buildMode=release" >> android/local.properties
+          echo "flutter.sdk=$(dirname "$(dirname "$(which flutter)")")" > local.properties
+          echo "flutter.buildMode=release" >> local.properties
 
       - name: Install dependencies
         run: flutter pub get --no-example
