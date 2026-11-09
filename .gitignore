@@ -1,0 +1,32 @@
+# Flutter
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.pub-cache/
+.pub/
+build/
+*.log
+
+# Android Studio
+.idea/
+*.iml
+.gradle/
+
+# Security
+*.jks
+*.keystore
+*.p12
+key.properties
+
+# APKs
+*.apk
+
+# Windows
+Thumbs.db
+Desktop.ini
+
+# macOS
+.DS_Store
+
+# Linux
+*~
