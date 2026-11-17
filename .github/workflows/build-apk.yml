@@ -1,0 +1,51 @@
+name: Build Release APK
+
+on:
+  push:
+    branches: [main, master]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # Keystore repo'ya konmaz (depo public) — secret'tan üretilir.
+      - name: Decode release keystore
+        env:
+          KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
+        run: |
+          if [ -n "$KEYSTORE_BASE64" ]; then
+            mkdir -p android/app
+            printf '%s' "$KEYSTORE_BASE64" | base64 -d > android/app/release.keystore
+            chmod 600 android/app/release.keystore
+          else
+            echo "::error::KEYSTORE_BASE64 secret tanımlı değil"
+            exit 1
+          fi
+
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: 3.47.9
+          channel: stable
+          cache: true
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - run: flutter pub get
+
+      - name: Build release APK
+        env:
+          STORE_PASS: ${{ secrets.STORE_PASS }}
+          KEY_PASS: ${{ secrets.KEY_PASS }}
+        run: cd android && ./gradlew :app:assembleRelease
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: amadeus-apk
+          path: android/app/build/outputs/flutter-apk/app-release.apk
+          if-no-files-found: error

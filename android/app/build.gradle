@@ -1,0 +1,46 @@
+plugins {
+    id "com.android.application"
+    id "dev.flutter.flutter-gradle-plugin"
+}
+
+android {
+    namespace "com.example.amadeus"
+    compileSdkVersion flutter.compileSdkVersion
+    ndkVersion flutter.ndkVersion
+
+    // Opt out of AGP 9+ new DSL (project uses AGP 8.11.1)
+
+    compileOptions {
+        coreLibraryDesugaringEnabled true
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
+    defaultConfig {
+        applicationId "com.example.amadeus"
+        minSdkVersion 26
+        targetSdkVersion flutter.targetSdkVersion
+        versionCode 1
+        versionName "1.0"
+    }
+
+    signingConfigs {
+        release {
+            storeFile file("release.keystore")
+            storePassword System.getenv("STORE_PASS") ?: "amadeus123"
+            keyAlias "amadeus"
+            keyPassword System.getenv("KEY_PASS") ?: "amadeus123"
+        }
+    }
+
+    buildTypes {
+        release {
+            signingConfig signingConfigs.release
+        }
+    }
+
+    dependencies {
+        coreLibraryDesugaring "com.android.tools:desugar_jdk_libs:2.1.4"
+        implementation "io.flutter:flutter_embedding_release:1.0.0-89c39edfdfae2949f6806e4a315c0c08522238b7"
+    }
+}
