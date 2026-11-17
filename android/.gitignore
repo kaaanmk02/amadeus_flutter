@@ -1,8 +1,6 @@
-gradle-wrapper.jar
+# CI / dağıtım için wrapper dosyaları depoda tutulur.
 /.gradle
 /captures/
-/gradlew
-/gradlew.bat
 /local.properties
 GeneratedPluginRegistrant.java
 .cxx/
