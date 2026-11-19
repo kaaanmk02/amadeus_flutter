@@ -35,11 +35,11 @@ class KurisuAvatar extends StatelessWidget {
               width: size * .76,
               height: 24,
               decoration: BoxDecoration(
-                color: AppTheme.accentRed.withValues(alpha: ((AppTheme.accentRed.a * .12).round().clamp(0, 255)).toDouble()),
+                color: AppTheme.accentRed.withValues(alpha: AppTheme.accentRed.a * .12),
                 borderRadius: BorderRadius.circular(100),
                 boxShadow: [
                   BoxShadow(
-                    color: AppTheme.accentRed.withValues(alpha: ((AppTheme.accentRed.a * .16).round().clamp(0, 255)).toDouble()),
+                    color: AppTheme.accentRed.withValues(alpha: AppTheme.accentRed.a * .16),
                     blurRadius: 28,
                     spreadRadius: 8,
                   ),

@@ -25,8 +25,15 @@ class SettingsManager {
   static const String kTtsProvider = 'tts_provider';
   static const String kAutoSpeak = 'auto_speak';
   static const String kLocalModelPath = 'local_model_path';
+  // ---- local_model_path ----
+  String? getLocalModelPath() => _prefs.getString(kLocalModelPath);
+  Future<void> setLocalModelPath(String? path) => _prefs.setString(kLocalModelPath, path ?? '');
+
   static const String kAiEngine = 'ai_engine';
   static const String kUseApiProxy = 'use_api_proxy';
+  static const String kLanguage = 'language';
+  static const String kThemeMode = 'theme_mode';
+  static const String kFontFamily = 'font_family';
 
   static Future<SettingsManager> load() async {
     const secure = FlutterSecureStorage();
@@ -107,13 +114,15 @@ class SettingsManager {
   Future<void> setAiEngine(String engine) =>
       _prefs.setString(kAiEngine, const {'online', 'local_gguf', 'rust'}.contains(engine) ? engine : 'online');
 
-  // ---- local_model_path ----
-  String? getLocalModelPath() => _prefs.getString(kLocalModelPath);
-  Future<void> setLocalModelPath(String? path) async {
-    if (path == null) {
-      await _prefs.remove(kLocalModelPath);
-    } else {
-      await _prefs.setString(kLocalModelPath, path);
-    }
-  }
+  // ---- language ----
+  String getLanguage() => _prefs.getString(kLanguage) ?? 'tr';
+  Future<void> setLanguage(String language) => _prefs.setString(kLanguage, language);
+
+  // ---- theme ----
+  String getThemeMode() => _prefs.getString(kThemeMode) ?? 'dark';
+  Future<void> setThemeMode(String mode) => _prefs.setString(kThemeMode, mode);
+
+  // ---- font ----
+  String getFontFamily() => _prefs.getString(kFontFamily) ?? 'Roboto';
+  Future<void> setFontFamily(String family) => _prefs.setString(kFontFamily, family);
 }

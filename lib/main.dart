@@ -40,7 +40,7 @@ Future<void> main() async {
 
   final soundManager = SoundManager();
   final speechManager = SpeechManager(settings: settings);
-  final localLlmManager = LocalLlmManager();
+  final localLlmManager = LocalLlmManager.instance;
 
   final viewModel = AmadeusViewModel(
     repository: repository,

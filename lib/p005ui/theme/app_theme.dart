@@ -31,7 +31,6 @@ class AppTheme {
         brightness: Brightness.dark,
         colorScheme: _scheme,
         scaffoldBackgroundColor: bgDeep,
-        fontFamily: 'Roboto',
         textTheme: const TextTheme(
           bodyLarge: TextStyle(color: textPrimary),
           bodyMedium: TextStyle(color: textSecondary),

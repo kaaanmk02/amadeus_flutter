@@ -111,6 +111,17 @@ class AmadeusViewModel extends ChangeNotifier {
     await repository.settings.setTtsProvider(provider);
   }
 
+  // ---- language / theme ----
+  String get language => repository.settings.getLanguage();
+  Future<void> setLanguage(String language) async {
+    await repository.settings.setLanguage(language);
+  }
+
+  String get themeMode => repository.settings.getThemeMode();
+  Future<void> setThemeMode(String mode) async {
+    await repository.settings.setThemeMode(mode);
+  }
+
   String get aiEngine => repository.settings.getAiEngine();
   Future<void> setAiEngine(String engine) async {
     await repository.settings.setAiEngine(engine);

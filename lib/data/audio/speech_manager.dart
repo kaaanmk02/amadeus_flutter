@@ -57,7 +57,7 @@ class SpeechManager {
       final apiKey = _settings?.getFishAudioApiKey() ?? '';
       final bytes = await FishAudioTts().synthesize(
         text: text,
-        apiKey: apiKey == '[REDACTED]' ? null : apiKey,
+        apiKey: apiKey == '[REDACTED]' ? null : apiKey.trim(),
       );
       if (bytes == null) {
         await _speakOffline(text);
