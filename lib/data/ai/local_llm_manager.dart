@@ -3,6 +3,8 @@
 /// Android tarafında `llama.cpp` / GGUF modeli JNI ile yüklenir.
 /// Flutter tarafında model dosyası `assets/models/` altında tutulur ve
 /// `MethodChannel('amadeus/local_llm')` üzerinden native tarafa geçirilir.
+library;
+
 import 'package:flutter/foundation.dart';
 import 'llama_gguf_service.dart';
 
