@@ -25,7 +25,7 @@ class _MemoryLogScreenState extends State<MemoryLogScreen> {
   }
   Future<void> _delete(MemoryData memory) async { await widget.memoryManager.deleteMemory(memory.id); if (mounted) setState(_reload); }
   @override
-  Widget build(BuildContext context) => Scaffold(backgroundColor: AppTheme.bgDeep, appBar: AppBar(backgroundColor: AppTheme.bgChat, title: const Text('AMADEUS MEMORY', style: TextStyle(letterSpacing: 1.5, fontSize: 14)), actions: [IconButton(onPressed: _addMemory, icon: const Icon(Icons.add, color: AppTheme.accentGreen))]), body: _memories.isEmpty ? const Center(child: Text('Henüz kaydedilmiş bir anı yok.', style: TextStyle(color: AppTheme.textSecondary))) : ListView.builder(padding: const EdgeInsets.all(14), itemCount: _memories.length, itemBuilder: (_, i) => _Tile(memory: _memories[i], onDelete: () => _delete(_memories[i]))));
+  Widget build(BuildContext context) => Scaffold(backgroundColor: AppTheme.bgDeep, appBar: AppBar(backgroundColor: AppTheme.bgChat, title: const Text('AMADEUS MEMORY', style: TextStyle(letterSpacing: 1.5, fontSize: 14)), actions: [IconButton(onPressed: _addMemory, icon: const Icon(Icons.add, color: AppTheme.accentRed))]), body: _memories.isEmpty ? const Center(child: Text('Henüz kaydedilmiş bir anı yok.', style: TextStyle(color: AppTheme.textSecondary))) : ListView.builder(padding: const EdgeInsets.all(14), itemCount: _memories.length, itemBuilder: (_, i) => _Tile(memory: _memories[i], onDelete: () => _delete(_memories[i]))));
 }
 class _Tile extends StatelessWidget {
   const _Tile({required this.memory, required this.onDelete});

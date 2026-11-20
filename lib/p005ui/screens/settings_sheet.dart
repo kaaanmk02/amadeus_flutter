@@ -105,7 +105,7 @@ class _SettingsSheetState extends State<SettingsSheet> {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text('Ayarlar kaydedildi.'),
-          backgroundColor: AppTheme.accentGreen,
+          backgroundColor: AppTheme.accentRed,
         ),
       );
     }
@@ -168,7 +168,7 @@ class _SettingsSheetState extends State<SettingsSheet> {
               onPressed: _save,
               icon: const Icon(Icons.save),
               label: const Text('KAYDET'),
-              style: ElevatedButton.styleFrom(backgroundColor: AppTheme.accentGreen),
+              style: ElevatedButton.styleFrom(backgroundColor: AppTheme.accentRed),
             ),
           ),
         ],

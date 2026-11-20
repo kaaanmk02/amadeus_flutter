@@ -45,7 +45,7 @@ class ChatExporterButtons extends StatelessWidget {
         await Clipboard.setData(ClipboardData(text: 'Kaydedildi: $result'));
         if (context.mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('Dışa aktarıldı: $result'), backgroundColor: AppTheme.accentGreen),
+            SnackBar(content: Text('Dışa aktarıldı: $result'), backgroundColor: AppTheme.accentRed),
           );
         }
       }

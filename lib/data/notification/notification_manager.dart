@@ -12,8 +12,19 @@ class NotificationManager {
   Future<void> init() async {
     if (_initialized) return;
     _plugin = FlutterLocalNotificationsPlugin();
+    // Platform-specific initialization settings.
+    // Android için mipmap/ic_launcher, Linux için defaultActionName.
     const android = AndroidInitializationSettings('@mipmap/ic_launcher');
-    const settings = InitializationSettings(android: android);
+    const linuxSettings = LinuxInitializationSettings(
+      defaultActionName: 'Amadeus Mesajı',
+    );
+    const darwinSettings = DarwinInitializationSettings();
+    const settings = InitializationSettings(
+      android: android,
+      linux: linuxSettings,
+      iOS: darwinSettings,
+      macOS: darwinSettings,
+    );
     await _plugin.initialize(settings);
     _initialized = true;
   }
