@@ -83,6 +83,8 @@ flutter:
   assets:
     - assets/expressions/
     - assets/voices/
+    - assets/frames_fullbody/CRS_icon_squinted_eye.png
+    - assets/frames_fullbody/CRS_kurisu_fullbody_001.png
 
   # To add assets to your application, add an assets section, like this:
   # assets:
