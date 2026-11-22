@@ -10,6 +10,9 @@
 include: package:flutter_lints/flutter.yaml
 
 analyzer:
+  errors:
+    prefer_initializing_formals: ignore  # info seviyesi uyarı: speech_manager.dart
+
   exclude:
     - build/**
     - android/**

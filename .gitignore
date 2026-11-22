@@ -65,3 +65,5 @@ squashfs-root/
 .widget_preview/
 # Environment variables
 .env
+/android/build/reports/problems/problems-report.html
+/android/settings.gradle.bak

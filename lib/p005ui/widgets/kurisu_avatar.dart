@@ -6,74 +6,72 @@ class KurisuAvatar extends StatelessWidget {
   final double size;
   final String asset;
   final double intensityScale;
-  final KurisuExpression expression;
   final bool isSpeaking;
   final bool isThinking;
   final double intensity;
+  final KurisuExpression? expression;
 
   const KurisuAvatar({
     super.key,
     required this.size,
-    this.asset = 'assets/expressions/CRS_JLD_40000100.png',
+    this.asset = 'assets/frames_fullbody/CRS_kurisu_fullbody_001.png',
     this.intensityScale = 1.0,
-    required this.expression,
     this.isSpeaking = false,
     this.isThinking = false,
     this.intensity = 1.0,
+    this.expression,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Transform.scale(
-      scale: intensityScale,
-      child: Stack(
-        alignment: Alignment.bottomCenter,
-        children: [
-          Positioned(
-            bottom: 10,
-            child: Container(
-              width: size * .76,
-              height: 24,
-              decoration: BoxDecoration(
-                color: AppTheme.accentRed.withValues(alpha: AppTheme.accentRed.a * .12),
-                borderRadius: BorderRadius.circular(100),
-                boxShadow: [
-                  BoxShadow(
-                    color: AppTheme.accentRed.withValues(alpha: AppTheme.accentRed.a * .16),
-                    blurRadius: 28,
-                    spreadRadius: 8,
-                  ),
-                ],
-              ),
-            ),
+    return Stack(
+      alignment: Alignment.bottomCenter,
+      children: [
+        // Full body Kurisu with squinted eyes
+        Image.asset(
+          asset,
+          fit: BoxFit.contain,
+          height: size * 0.95,
+          width: size * 0.6,
+          errorBuilder: (_, _, _) => const Center(
+            child: Icon(Icons.person, size: 120, color: AppTheme.textSecondary),
           ),
-          AnimatedSwitcher(
-            duration: const Duration(milliseconds: 130),
-            child: Image.asset(
-              asset,
-              key: ValueKey(asset),
-              fit: BoxFit.contain,
-              alignment: Alignment.bottomCenter,
-              errorBuilder: (_, _, _) => const Center(
-                child: Icon(Icons.broken_image_outlined, size: 72, color: AppTheme.textSecondary),
+        ),
+        // Glow effect
+        Container(
+          width: size * 1.0,
+          height: size * 0.7,
+          decoration: BoxDecoration(
+            boxShadow: [
+              BoxShadow(
+                color: AppTheme.accentAmber.withValues(alpha: 0.2),
+                blurRadius: 40,
+                spreadRadius: 20,
               ),
-            ),
+              BoxShadow(
+                color: AppTheme.accentRed.withValues(alpha: 0.08),
+                blurRadius: 30,
+                spreadRadius: 15,
+              ),
+            ],
+            borderRadius: BorderRadius.circular(50),
           ),
-          isThinking
-              ? Positioned(top: 8, right: 18, child: _thinkingDots())
-              : const SizedBox.shrink(),
-        ],
-      ),
+        ),
+        if (isThinking)
+          Positioned(top: 10, right: 10, child: _thinkingDots())
+        else
+          const SizedBox.shrink(),
+      ],
     );
   }
 
   Widget _thinkingDots() =>
       Container(
-        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 5),
         decoration: BoxDecoration(
-          color: AppTheme.accentAmber.withValues(alpha: ((AppTheme.accentAmber.a * .5).round().clamp(0, 255)).toDouble()),
+          color: AppTheme.accentAmber.withValues(alpha: 0.6),
           borderRadius: BorderRadius.circular(20),
         ),
-        child: const Text('···', style: TextStyle(color: AppTheme.accentAmber, fontSize: 20, height: 1)),
+        child: const Text('···', style: TextStyle(color: AppTheme.accentAmber, fontSize: 16, height: 1.2)),
       );
 }

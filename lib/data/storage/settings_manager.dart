@@ -34,17 +34,29 @@ class SettingsManager {
   static const String kLanguage = 'language';
   static const String kThemeMode = 'theme_mode';
   static const String kFontFamily = 'font_family';
+  static const String kNotificationsRead = 'notifications_read';
 
   static Future<SettingsManager> load() async {
     const secure = FlutterSecureStorage();
-    final manager = SettingsManager(await SharedPreferences.getInstance(), secure);
-    manager._apiKeyCache = await secure.read(key: _secureApiKey) ?? '';
-    manager._fishApiKeyCache = await secure.read(key: _secureFishApiKey) ?? '';
+    final prefs = await SharedPreferences.getInstance();
+    final manager = SettingsManager(prefs, secure);
+    // Libsecret (GNOME keyring) başı başına başlamaz; boş varsayla.
+    try {
+      manager._apiKeyCache = await secure.read(key: _secureApiKey) ?? '';
+      manager._fishApiKeyCache = await secure.read(key: _secureFishApiKey) ?? '';
+    } catch (_) {
+      manager._apiKeyCache = '';
+      manager._fishApiKeyCache = '';
+    }
     // Eski sürümden kalan düz metin anahtarı güvenli alana taşınır.
     final legacy = manager._prefs.getString(kApiKey);
     if (manager._apiKeyCache.isEmpty && legacy != null && legacy.isNotEmpty && legacy != '[REDACTED]') {
       manager._apiKeyCache = legacy;
-      await secure.write(key: _secureApiKey, value: legacy);
+      try {
+        await secure.write(key: _secureApiKey, value: legacy);
+      } catch (_) {
+        // Secure storage yoksa; anahtar yalnızca şemalarda kalır.
+      }
     }
     await manager._prefs.remove(kApiKey);
     return manager;
@@ -125,4 +137,8 @@ class SettingsManager {
   // ---- font ----
   String getFontFamily() => _prefs.getString(kFontFamily) ?? 'Roboto';
   Future<void> setFontFamily(String family) => _prefs.setString(kFontFamily, family);
+
+  // ---- notifications_read ----
+  bool getNotificationsRead() => _prefs.getBool(kNotificationsRead) ?? false;
+  Future<void> setNotificationsRead(bool value) => _prefs.setBool(kNotificationsRead, value);
 }

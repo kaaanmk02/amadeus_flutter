@@ -12,6 +12,7 @@ class SpeechManager {
   // _settings mutable olduğu için (configure ile yeniden atanabilir) initializing
   // formal yerine açık atama kullanıyoruz.
   // ignore: prefer_initializing_formals
+// ignore: prefer_initializing_formals
   SpeechManager({required SettingsManager? settings})
       : _settings = settings,
         _tts = FlutterTts(),

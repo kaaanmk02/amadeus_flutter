@@ -439,6 +439,35 @@ class AmadeusViewModel extends ChangeNotifier {
     _updateUiState(divergenceMeter: repository.nextDivergence());
   }
 
+  // ==== MÜZİK YÖNETİMİ ====
+
+  /// Müzik çalıyor demek için sondaj (toggle).
+  void toggleMusic() {
+    soundManager.play('music');
+  }
+
+  /// Müzik durdurma.
+  void stopMusic() {
+    soundManager.stopAllAudio();
+  }
+
+  /// Bir sonraki şarkıya atla.
+  void nextMusic() {
+    soundManager.next();
+  }
+
+  /// Bir sonraki şarkıya atla (geri).
+  void prevMusic() {
+    soundManager.next();
+  }
+
+  /// Çarkı liste indexine ayarla.
+  void setPlaylistIndex(int idx) {
+    if (idx >= 0) {
+      soundManager.play('music');
+    }
+  }
+
   // ------------------------------------------------------------------
   // Yardımcılar
   // ------------------------------------------------------------------
@@ -503,6 +532,16 @@ class AmadeusViewModel extends ChangeNotifier {
       _updateUiState(isSpeaking: false);
     }
   }
+
+  // ------------------------------------------------------------------
+  // MÜZİK / PLAYER
+  // ------------------------------------------------------------------
+  Future<void> playAudio() => soundManager.play('music');
+  Future<void> loopAudio() => soundManager.loop('music');
+  Future<void> skipAudio() => soundManager.next();
+
+  bool get micMuted => soundManager.muted;
+  Future<void> toggleMicMute() => soundManager.mute();
 
   void _finalizeAssistantMessage(String response) {
     _updateUiState(

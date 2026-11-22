@@ -17,6 +17,15 @@ class AmadeusUiState {
     this.isLocalAiEnabled = false,
     this.divergenceMeter,
     this.isListening = false,
+    // ---- Müzik çantası (KurisuMusicPlayer) ----
+    this.musicSongs = const <Map<String, dynamic>>[],
+    this.isMusicPlaying = false,
+    this.currentMusicIndex = 0,
+    this.musicVolume = 80.0,
+    this.isMobile = false,
+    // ---- KURISU VÜCUDU / BİLGİSEL DURUM ----
+    this.currentMessage = '',
+    this.intensity = 0.7,
   });
 
   final List<ChatMessage> messages;
@@ -32,6 +41,17 @@ class AmadeusUiState {
   final String? divergenceMeter;
   final bool isListening;
 
+  // ---- Müzik çantası (KurisuMusicPlayer) ----
+  final List<Map<String, dynamic>> musicSongs;
+  final bool isMusicPlaying;
+  final int currentMusicIndex;
+  final double musicVolume;
+  final bool isMobile;
+
+  // ---- KURISU VÜCUDU / BİLGİSEL DURUM ----
+  final String currentMessage;
+  final double intensity;
+
   AmadeusUiState copyWith({
     List<ChatMessage>? messages,
     PersonalityType? currentPersonality,
@@ -45,6 +65,13 @@ class AmadeusUiState {
     bool? isLocalAiEnabled,
     String? divergenceMeter,
     bool? isListening,
+    List<Map<String, dynamic>>? musicSongs,
+    bool? isMusicPlaying,
+    int? currentMusicIndex,
+    double? musicVolume,
+    bool? isMobile,
+    String? currentMessage,
+    double? intensity,
   }) =>
       AmadeusUiState(
         messages: messages ?? this.messages,
@@ -59,5 +86,12 @@ class AmadeusUiState {
         isLocalAiEnabled: isLocalAiEnabled ?? this.isLocalAiEnabled,
         divergenceMeter: divergenceMeter ?? this.divergenceMeter,
         isListening: isListening ?? this.isListening,
+        musicSongs: musicSongs ?? this.musicSongs,
+        isMusicPlaying: isMusicPlaying ?? this.isMusicPlaying,
+        currentMusicIndex: currentMusicIndex ?? this.currentMusicIndex,
+        musicVolume: musicVolume ?? this.musicVolume,
+        isMobile: isMobile ?? this.isMobile,
+        currentMessage: currentMessage ?? this.currentMessage,
+        intensity: intensity ?? this.intensity,
       );
 }

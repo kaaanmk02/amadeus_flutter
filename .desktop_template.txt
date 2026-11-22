@@ -1,0 +1,13 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Amadeus
+Comment=Steins;Gate AI Asistanı Uygulaması
+Exec=/home/kaan/amadeus_project/amadeus_flutter/build/linux/x64/release/bundle/amadeus
+Icon=/home/kaan/amadeus_project/amadeus_flutter/assets/frames_fullbody/CRS_icon_squinted_eye.png
+Terminal=false
+Categories=Utility;AI;Science;
+Keywords=ai;assistant;chat;steinsgate;
+StartupNotify=true
+StartupWMClass=com.example.amadeus
+MimeType=application/x-amadeus-url;application/x-amadeus-text;
